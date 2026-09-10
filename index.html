@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111111">
+  <title>Relatórios de Pagamento | DANE-SE</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="xlsx.full.min.js"></script>
+</head>
+<body>
+  <section id="login" class="login-screen">
+    <div class="login-card">
+      <div class="brand">dane-se<sup>®</sup></div>
+      <p class="eyebrow">GESTÃO DE PESSOAS</p>
+      <h1>Relatórios de<br>pagamento</h1>
+      <p class="muted">Acesso restrito. Digite a senha para continuar.</p>
+      <form id="loginForm">
+        <label for="password">Senha</label>
+        <div class="password-row">
+          <input id="password" type="password" autocomplete="current-password" placeholder="Digite sua senha" required>
+          <button id="togglePassword" type="button" class="icon-button" aria-label="Mostrar senha">◉</button>
+        </div>
+        <p id="loginError" class="error" role="alert"></p>
+        <button class="primary full" type="submit">Entrar</button>
+      </form>
+    </div>
+  </section>
+
+  <main id="app" class="app hidden">
+    <header class="topbar">
+      <div class="brand small">dane-se<sup>®</sup></div>
+      <div>
+        <p class="eyebrow">GESTÃO DE PESSOAS</p>
+        <h2>Relatórios de pagamento</h2>
+      </div>
+      <button id="logout" class="ghost">Sair</button>
+    </header>
+
+    <section class="workspace">
+      <aside class="control-panel">
+        <div class="step"><span>01</span><div><strong>Importar fechamento</strong><small>Arquivo .xlsx ou .xls</small></div></div>
+        <label class="dropzone" id="dropzone" for="fileInput">
+          <input id="fileInput" type="file" accept=".xlsx,.xls,.xlsm">
+          <span class="upload-icon">↑</span>
+          <strong>Selecionar planilha</strong>
+          <small>ou arraste o arquivo aqui</small>
+        </label>
+        <div id="fileInfo" class="file-info hidden"></div>
+
+        <div id="sheetControls" class="hidden">
+          <div class="step compact"><span>02</span><div><strong>Conferir competência</strong><small>Selecione a aba correta</small></div></div>
+          <label for="sheetSelect">Aba de fechamento</label>
+          <select id="sheetSelect"></select>
+          <label for="competence">Competência</label>
+          <input id="competence" type="text" placeholder="Ex.: Agosto/2026">
+        </div>
+
+        <div id="exportControls" class="hidden">
+          <button id="printAll" class="primary full">Imprimir todos / Salvar em PDF</button>
+          <button id="clearFile" class="secondary full">Trocar planilha</button>
+        </div>
+        <p class="privacy">Os dados são processados somente neste navegador.</p>
+      </aside>
+
+      <section class="results-panel">
+        <div id="emptyState" class="empty-state">
+          <div class="empty-mark">D</div>
+          <h3>Importe a planilha de fechamento</h3>
+          <p>O sistema localizará todos os funcionários e preencherá os relatórios automaticamente.</p>
+        </div>
+
+        <div id="results" class="hidden">
+          <div class="results-head">
+            <div>
+              <p class="eyebrow">RELATÓRIOS GERADOS</p>
+              <h3><span id="employeeCount">0</span> funcionários encontrados</h3>
+            </div>
+            <div class="search-wrap"><input id="search" type="search" placeholder="Buscar funcionário ou unidade"></div>
+          </div>
+          <div id="notice" class="notice hidden"></div>
+          <div id="employeeList" class="employee-list"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div id="reportModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-shell">
+      <div class="modal-toolbar">
+        <strong id="modalTitle">Prévia do relatório</strong>
+        <div><button id="printOne" class="primary">Imprimir / PDF</button><button id="closeModal" class="ghost">Fechar</button></div>
+      </div>
+      <div id="reportPreview"></div>
+    </div>
+  </div>
+  <div id="toast" class="toast hidden" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
