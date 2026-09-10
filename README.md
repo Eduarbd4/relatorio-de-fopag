@@ -21,3 +21,5 @@ Para alterar, abra `app.js` e edite a primeira linha (`ACCESS_PASSWORD`).
 ## Uso
 
 Após entrar, importe um arquivo `.xlsx`, `.xlsm` ou `.xls`. O sistema seleciona automaticamente a aba de fechamento mais recente, mas permite escolher outra aba e ajustar a competência. Os relatórios podem ser visualizados individualmente ou impressos/salvos em PDF em lote.
+
+Na prévia individual, clique diretamente em qualquer texto, nome, valor, dia ou observação para editar. As alterações permanecem durante a sessão e também são usadas na impressão em lote. O botão **Restaurar original** recupera os dados importados da planilha.
